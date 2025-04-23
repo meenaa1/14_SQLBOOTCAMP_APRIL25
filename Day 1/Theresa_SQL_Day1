@@ -35,6 +35,16 @@ ShippedDate Date,
 ShipperID int,
 Freight Float )
 
+ALTER TABLE orders
+ADD CONSTRAINT fk_order_customer
+FOREIGN KEY (CustomerID)
+REFERENCES Customers (CustomerID);
+
+ALTER TABLE orders
+ADD CONSTRAINT fk_order_Employee
+FOREIGN KEY (EmployeeID)
+REFERENCES Employees (EmployeeID);
+
 Select * from Orders
 
 create Table Products(
@@ -45,6 +55,11 @@ UnitPrice float Not Null,
 Discontinued int Not nUll,
 CategoryID int NOT NULL)
 
+ALTER TABLE Products
+ADD CONSTRAINT fk_products_Category
+FOREIGN KEY (CategoryID)
+REFERENCES Categories (CategoryID);
+
 Select * from Products
 
 create Table OrdersDetails(
@@ -53,6 +68,16 @@ ProductID int NOT NULL,
 UnitPrice Float NOT NULL,
 Quantity int NOT NULL,
 Discount Float NOT NULL)
+
+ALTER TABLE OrdersDetails
+ADD CONSTRAINT fk_OrdersDetails_Orders
+FOREIGN KEY (OrderID)
+REFERENCES Orders (OrderID)
+
+ALTER TABLE OrdersDetails
+ADD CONSTRAINT fk_OrdersDetails_Products
+FOREIGN KEY (ProductID)
+REFERENCES Products (ProductID);
 
 Select * from OrdersDetails
 
