@@ -127,8 +127,3 @@ ADD CONSTRAINT fk_order_details_orders
 FOREIGN KEY ("orderID")
 REFERENCES orders("orderID");
 
--- Foreign Key from employees to employees (self-referencing for reportsTo)
-ALTER TABLE employees
-ADD CONSTRAINT fk_employees_reportsTo
-FOREIGN KEY ("reportsTo")
-REFERENCES employees("employeeID");
