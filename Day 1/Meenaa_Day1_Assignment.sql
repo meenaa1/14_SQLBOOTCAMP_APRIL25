@@ -1,11 +1,3 @@
---creating Database
-create Database northwind
-create Database "NorthWind"
-Drop Database northwind;
-SELECT pg_terminate_backend(pid)
-FROM pg_stat_activity
-WHERE datname = 'northwind';
-
 --categories Table
 CREATE TABLE categories (
 	"categoryID" SERIAL PRIMARY KEY,
@@ -59,22 +51,22 @@ CREATE TABLE orders (
     "orderID" INTEGER PRIMARY KEY,
     "customerID" VARCHAR NOT NULL,
     "employeeID" INTEGER NOT NULL,
-  	"orderDate" DATE NOT NULL,
+	"orderDate" DATE NOT NULL,
     "requiredDate" DATE NOT NULL,
     "shippedDate" DATE NOT NULL,
-  	"shipperID" INTEGER NOT NULL,
-  	"freight" NUMERIC(10, 2) NOT NULL
+	"shipperID" INTEGER NOT NULL,
+	"freight" NUMERIC(10, 2) NOT NULL
 );
 select * from orders
 
 --products Table
 CREATE TABLE products (
     "productID" SERIAL PRIMARY KEY,
-  	"productName" VARCHAR (50) NOT NULL,
-	  "quantityPerUnit" VARCHAR (25) NOT NULL,
+	"productName" VARCHAR (50) NOT NULL,
+	"quantityPerUnit" VARCHAR (25) NOT NULL,
     "unitPrice" NUMERIC(10, 2) NOT NULL,
     "discontinued" INTEGER NOT NULL,
-  	"categoryID" INTEGER NOT NULL
+	"categoryID" INTEGER NOT NULL
 );
 select * from products
 
