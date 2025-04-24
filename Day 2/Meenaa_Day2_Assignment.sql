@@ -1,27 +1,22 @@
 --***** 1.Altering Table employees*****--
---Adding new Column "linkedin_profile"
+--Adding new Column "linkedin_profile"--
 ALTER TABLE employees
 ADD COLUMN linkedin_profile VARCHAR(250);
 select*from employees
-
---Change the column datatype to TEXT
+--Change the column datatype to TEXT--
 ALTER TABLE employees
 ALTER COLUMN linkedin_profile TYPE TEXT;
--- Add UNIQUE and NOT NULL constraints to 'linkedin_profile'
+-- Add UNIQUE and NOT NULL constraints to 'linkedin_profile'--
 ALTER TABLE employees
 ADD CONSTRAINT unique_linkedin_profile UNIQUE (linkedin_profile);
---  Ensure no NULLs before setting NOT NULL
---To attain this first we need to drop the column created and add the column
-ALTER TABLE employees
-DROP COLUMN linkedin_profile;
-
-ALTER TABLE employees
-ADD COLUMN linkedin_profile TEXT
-GENERATED ALWAYS AS ('https://www.linkedin.com/in/user_' || 'employeeID') STORED;
- --Add NOT NULL constraint
+--  Ensure no NULLs before setting NOT NULL--
+UPDATE employees
+ SET linkedin_profile = 'linkedin.com/'||"employeeName"
+ WHERE linkedin_profile IS NULL;
+ --Add NOT NULL constraint--
 ALTER TABLE employees
 ALTER COLUMN linkedin_profile SET NOT NULL;
--- Drop the 'linkedin_profile' column
+-- Drop the 'linkedin_profile' column--
 ALTER TABLE employees
 DROP COLUMN linkedin_profile;
 
