@@ -113,5 +113,27 @@ Where categoryid Not In (1, 2, 3);
 Select * From public.customers
 Where companyname Like 'A%';
 
+
+--8)INSERT into orders table:
+
+--Task: Add a new order to the orders table with the following details:
+--Order ID: 11078
+--Customer ID: ALFKI
+--Employee ID: 5
+--Order Date: 2025-04-23
+--Required Date: 2025-04-30
+--Shipped Date: 2025-04-25
+--shipperID:2
+--Freight: 45.50
+
+Insert Into public.orders (orderid, customerid, employeeid, orderdate, requireddate, shippeddate, shipperid, freight)
+Values (11078, 'ALFKI', 5, '2025-04-23', '2025-04-30', '2025-04-25', 2, 45.50);
+ 
+--9)Increase(Update)the unit price of all products in category_id =2 by 10%.
+--HINT: unit_price =unit_price * 1.10)
+
+Update public.products
+Set unitprice = unitprice * 1.10
+Where categoryid = 2;
 	  
 	  
