@@ -9,6 +9,7 @@ Output should have below columns:
     quantity,
     orderdate*/
 
+--****1.List all customers and the products they ordered with the order date. (Inner join)****--
 SELECT 
     c.company_name AS customer,
     o.order_id,
@@ -24,6 +25,12 @@ JOIN products p ON od.product_id = p.product_id;
  
 /*2.     Show each order with customer, employee, shipper, and product info — even if some parts are missing. (Left Join)
 Tables used: orders, customers, employees, shippers, order_details, products*/
+INNER JOIN orders o ON c.customer_id = o.customer_id
+INNER JOIN order_details od ON o.order_id = od.order_id
+INNER JOIN products p ON od.product_id = p.product_id
+ORDER BY c.company_name, o.order_id;
+
+--****2.Show each order with customer, employee, shipper, and product info — even if some parts are missing. (Left Join)****--
 
 SELECT 
     o.order_id,
@@ -37,7 +44,8 @@ LEFT JOIN customers c ON o.customer_id = c.customer_id
 LEFT JOIN employees e ON o.employee_id = e.employee_id
 LEFT JOIN shippers s ON o.ship_via = s.shipper_id
 LEFT JOIN order_details od ON o.order_id = od.order_id
-LEFT JOIN products p ON od.product_id = p.product_id;
+LEFT JOIN products p ON od.product_id = p.product_id
+ORDER BY o.order_id;
 
  
 /*3.     Show all order details and products (include all products even if they were never ordered). (Right Join)
@@ -54,7 +62,8 @@ SELECT
     od.quantity,
     p.product_name
 FROM order_details od
-RIGHT JOIN products p ON od.product_id = p.product_id;
+RIGHT JOIN products p ON od.product_id = p.product_id
+ORDER BY p.product_id;
 
 
  
@@ -65,7 +74,8 @@ SELECT
     c.category_name,
     p.product_name
 FROM categories c
-FULL OUTER JOIN products p ON c.category_id = p.category_id;
+FULL OUTER JOIN products p ON c.category_id = p.category_id
+ORDER BY  c.category_name, p.product_name;
 
 
 
@@ -76,16 +86,32 @@ FULL OUTER JOIN products p ON c.category_id = p.category_id;
     p.product_name
 FROM categories c
 CROSS JOIN products p;
+SELECT 
+    p.product_id,
+    p.product_name,
+    c.category_id,
+    c.category_name
+FROM 
+    products p
+CROSS JOIN 
+    categories c
+ORDER BY 
+    p.product_id, c.category_id;
+
 
 /*6. 	Show all employees who have the same manager(Self join)*/
  
 SELECT 
-    e1.first_name || ' ' || e1.last_name AS employee,
-    e2.first_name || ' ' || e2.last_name AS coworker,
-    e1.reports_to AS manager_id
-FROM employees e1
-JOIN employees e2 ON e1.reports_to = e2.reports_to
-WHERE e1.employee_id <> e2.employee_id;
+    e.employee_id AS employee,
+    e.first_name || ' ' || e.last_name AS employeename,
+    m.first_name || ' ' || m.last_name AS manager_name
+FROM 
+    employees e
+LEFT JOIN 
+    employees m ON e.reports_to = m.employee_id
+ORDER BY 
+    e.employee_id;
+SELECT*from employees
  
  
 /*7. 	List all customers who have not selected a shipping method.
@@ -93,6 +119,7 @@ Tables used: customers, orders
 (Left Join, WHERE o.shipvia IS NULL)*/
  
 SELECT 
+    c.customer_id,
     c.company_name
 FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
