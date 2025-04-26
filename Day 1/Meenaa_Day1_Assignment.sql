@@ -48,12 +48,12 @@ select * from order_details
 
 --orders Table
 CREATE TABLE orders (
-    "orderID" INTEGER PRIMARY KEY,
-    "customerID" VARCHAR NOT NULL,
-    "employeeID" INTEGER NOT NULL,
+	"orderID" INTEGER PRIMARY KEY,
+	"customerID" VARCHAR NOT NULL,
+ 	"employeeID" INTEGER NOT NULL,
 	"orderDate" DATE NOT NULL,
-    "requiredDate" DATE NOT NULL,
-    "shippedDate" DATE NOT NULL,
+	"requiredDate" DATE NOT NULL,
+	"shippedDate" DATE NOT NULL,
 	"shipperID" INTEGER NOT NULL,
 	"freight" NUMERIC(10, 2) NOT NULL
 );
@@ -61,11 +61,11 @@ select * from orders
 
 --products Table
 CREATE TABLE products (
-    "productID" SERIAL PRIMARY KEY,
+	"productID" SERIAL PRIMARY KEY,
 	"productName" VARCHAR (50) NOT NULL,
 	"quantityPerUnit" VARCHAR (25) NOT NULL,
-    "unitPrice" NUMERIC(10, 2) NOT NULL,
-    "discontinued" INTEGER NOT NULL,
+	"unitPrice" NUMERIC(10, 2) NOT NULL,
+	"discontinued" INTEGER NOT NULL,
 	"categoryID" INTEGER NOT NULL
 );
 select * from products
