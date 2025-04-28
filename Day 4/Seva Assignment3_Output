@@ -1,0 +1,34 @@
+select C.company_name As Customer,O.order_id,P.product_id,D.quantity,O.order_date
+from customers C inner join orders O on C.customer_id=o.customer_id 
+inner join order_details D on O.order_id = D.order_id inner join products P on D.product_id=P.product_id 
+order by order_id
+
+SELECT O.order_id,O.Order_date, C.customer_id,C.company_name as Customer,
+	   E.employee_id,E.first_name|| ' ' || E.last_name as Employee_name,
+	   S.shipper_id,S.company_name,D.quantity,P.product_id,P.product_name
+FROM orders O
+LEFT JOIN customers C ON O.customer_id = C.customer_id
+LEFT JOIN employees E ON O.employee_id = E.employee_id
+LEFT JOIN shippers S ON O.ship_via = s.shipper_id
+LEFT JOIN order_details D ON O.order_id = D.order_id
+LEFT JOIN products P ON D.product_id = P.product_id;
+
+select O.order_id,P.product_id,O.quantity,P.product_name
+from order_details O right join products P on P.product_id=O.product_id 
+order by O.order_id
+
+select *
+from categories C full outer join products P on P.category_id=C.category_id 
+order by P.category_id
+
+select *
+from categories C cross join products P
+
+select E.employee_id, E.first_name || ' ' ||E.last_name as employeename,
+M.first_name || ' ' ||M.last_name as managername
+from employees E Left join employees M on E.reports_to = M.employee_id
+order by E.employee_id
+
+select *
+from categories C cross join products P
+
