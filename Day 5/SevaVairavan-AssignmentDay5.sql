@@ -28,3 +28,4 @@ select category_id from products where discontinued=1
 select order_id from order_details
 except
 select order_id from order_details where discount>0
+=======
