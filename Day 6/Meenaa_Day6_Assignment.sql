@@ -24,8 +24,6 @@ WHERE
 
 SELECT*FROM categories
 
-
-
 --****3.Find Orders by Employee with Most Sales (Display order_id,   order_date,  freight, employee_id.****--
 
 SELECT
@@ -37,17 +35,14 @@ FROM
 	orders
 WHERE
 	employee_id = (
-	SELECT
-		employee_id
-	FROM
-		orders
-	GROUP BY
-		employee_id
-	ORDER BY
+	SELECT employee_id
+	FROM orders
+	GROUP BY employee_id
+	ORDER BY 
 		COUNT(*) DESC
 		LIMIT 1
-		);
-
+		)
+ORDER BY order_id;
 
 --****4.Find orders  where for country!= ‘USA’ with freight costs higher than any order from USA. (Subquery, Try with ANY, ALL operators)****--
 --ANY Operators
