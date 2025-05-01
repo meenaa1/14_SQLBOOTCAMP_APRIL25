@@ -42,6 +42,7 @@ WITH priceCategories AS (
             ELSE 'High Price'
         END AS price_category
     FROM 
+
         products)
 
 SELECT 
