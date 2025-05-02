@@ -1,0 +1,82 @@
+--**********************************************************************************************
+--1.Create view vw_updatable_products
+Create view vw_updatable_products as
+select product_id,product_name,unit_price,units_in_stock,discontinued from products
+where discontinued=0
+with check option
+
+--Update query:
+UPDATE vw_updatable_products SET unit_price=unit_price*1.1 where units_in_stock<10
+
+--Select Query:
+select * from products where units_in_stock<10
+
+--Select vw_updatable_products
+select * from vw_updatable_products where units_in_stock<10
+
+--**********************************************************************************************
+--2.Transaction:
+--COMMIT:
+Begin;
+
+--Update the unit_price for Category_id=1
+update products
+set unit_price=unit_price*1.10
+where category_id=1;
+
+commit;
+
+--ROLLBACK:
+Begin;
+
+--Update the unit_price for Category_id=1
+update products
+set unit_price=unit_price*1.10
+where category_id=1;
+
+rollback;
+--**********************************************************************************************
+--3.Create a regular view which will have below details (Need to do joins):
+
+create view vw_employee as
+select E.employee_id, E.first_name || ' ' || e.last_name AS employee_full_name,
+E.title, T.territory_id, T.territory_description,
+R.region_description 
+FROM employees E
+JOIN employee_territories ET ON E.employee_id = ET.employee_id
+JOIN territories T ON ET.territory_id = T.territory_id
+JOIN region R ON T.region_id = R.region_id;
+
+--Select vw_employee:
+select * from vw_employee4
+
+--**********************************************************************************************
+--4.Create a recursive CTE based on Employee Hierarchy
+--Recursive
+with recursive cte_employeehierarchy as(
+--Base Case: employee with no manager(top level)
+select 
+       employee_id, first_name || ' ' || last_name AS employee_name, title, reports_to,
+       0 as level
+from employees
+where reports_to is null
+
+UNION ALL
+-- Recursive Case: employees reporting to managers
+Select
+        E.employee_id,
+        E.first_name || ' ' || e.last_name AS employee_name,
+        E.title,
+        E.reports_to,
+        EH.level + 1
+from employees E
+join cte_employeehierarchy EH
+on EH.employee_id = E.reports_to)
+
+select 
+level,
+employee_id, employee_name, title
+from cte_employeehierarchy
+order by 
+level, employee_id
+--**********************************************************************************************
